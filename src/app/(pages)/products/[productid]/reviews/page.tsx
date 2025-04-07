@@ -1,13 +1,17 @@
-import React from "react";
 
-const AllReviews = () => {
+const Review = async ({
+  params,
+}: {
+  params: Promise<{ reviewid: string; productid: string }>;
+}) => {
+  const { reviewid, productid } = await params;
   return (
     <div>
-      <h3>Review 1</h3>
-      <h3>Review 2</h3>
-      <h3>Review 3</h3>
+      <h2>
+        Showing the review {reviewid} of {productid}
+      </h2>
     </div>
   );
 };
 
-export default AllReviews;
+export default Review;
