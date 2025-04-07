@@ -1,8 +1,4 @@
-//separate routes will use separate layout
-
-import Header from "../_ui/Header";
-
-import "../global.css";
+import "./global.css";
 export const metadata = {
   title: {
     default: "Auth",
@@ -17,9 +13,8 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Header />
-      <main className="my-16">{children}</main>
-    </>
+    <html lang="en">
+      <body>{children}</body>
+    </html>
   );
 }

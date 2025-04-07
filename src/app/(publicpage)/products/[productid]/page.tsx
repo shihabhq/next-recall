@@ -1,23 +1,30 @@
-import { Metadata } from "next";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { use } from "react";
 
 type Props = {
   params: Promise<{ productid: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] }>; //or you can define by your won
 };
 
-export const generateMetadata = async ({
-  params,
-}: Props): Promise<Metadata> => {
-  //must be in this name
-
-  const { productid } = await params;
-  return {
-    title: `Product ${productid}`,
-  };
-};
-
-const DynamicProductPage = async ({ params }: Props) => {
-  const { productid } = await params;
-  return <div> product details for {productid}</div>;
+const DynamicProductPage = ({ params }: Props) => {
+  const router = useRouter();
+  const { productid } = use(params);
+  return (
+    <div>
+      {" "}
+      product details for {productid}
+      <button
+       className="bg-blue-500 text-white p-2 rounded-md"
+        onClick={() => {
+          router.push("/");
+        }}
+      >
+        Order Product
+      </button>
+    </div>
+  );
 };
 
 export default DynamicProductPage;
