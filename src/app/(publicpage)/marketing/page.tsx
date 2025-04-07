@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "marketing",
+};
+
 const Marketing = () => {
   return (
     <div>

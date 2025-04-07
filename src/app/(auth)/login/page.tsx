@@ -1,3 +1,9 @@
+export const metadata = {
+  title: {
+    absolute: "Login",
+  },
+};
+
 const Login = () => {
   return (
     <div>
