@@ -13,9 +13,9 @@ const ErrorFin = ({ error, reset }: { error: Error; reset: () => void }) => {
   };
   return (
     <div className="text-red-700">
-      {error.message}
-      <button onClick={reload}>Try again</button>
-    </div>
+    {error.message}
+    <button onClick={reload}>Try again</button>
+  </div>
   );
 };
 
