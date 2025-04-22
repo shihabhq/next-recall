@@ -4,7 +4,6 @@ const RevenueMetrics = async () => {
       resolve("intentional delay");
     }, 2000);
   });
-  throw new Error('something went wrong')
   return <div>Revenue Metrics</div>;
 };
 

@@ -4,25 +4,13 @@ import { usePathname } from "next/navigation";
 
 const navlinks = [
   {
-    href: "/",
-    text: "Home",
+    href: "/dashboard",
+    text: "Dashboard",
   },
   {
-    href: "/marketing",
-    text: "Marketing",
-  },
-  {
-    href: "/products",
-    text: "Products",
-  },
-  {
-    href: "/login",
-    text: "Login",
-  },
-  {
-    href: "/register",
-    text: "Register",
-  },
+    href: "/about",
+    text: "About",
+  }
 ];
 
 const Header = () => {
