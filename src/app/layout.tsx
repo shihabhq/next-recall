@@ -1,3 +1,5 @@
+import Footer from "./_ui/Footer";
+import Header from "./_ui/Header";
 import "./global.css";
 export const metadata = {
   title: {
@@ -14,7 +16,11 @@ export default function AuthLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Header />
+        <main className="min-h-screen">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
