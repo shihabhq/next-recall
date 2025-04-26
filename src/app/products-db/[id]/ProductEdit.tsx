@@ -1,19 +1,19 @@
-"use client";
-
-import { createAction, FormState } from "@/actions/products";
+import { editAction, FormState } from "@/actions/products";
 import { useActionState } from "react";
+import { Product } from "../page";
 
-const AddProductsPage = () => {
+const EditProductsForm = ({ product }: { product: Product }) => {
   const initialState: FormState = {
     errors: {},
   };
+  const editProductWithId = editAction.bind(null, product.id); //same as calling editAction(product.id);
   const [state, formAction, isPending] = useActionState(
-    createAction,
+    editProductWithId,
     initialState
   );
   return (
     <form action={formAction} className="flex flex-col gap-4 w-96 p-4">
-      <h1>Add Products</h1>
+      <h1>Edit Products</h1>
       <div>
         <input
           className="border-1 rounded-sm p-2 "
@@ -57,4 +57,4 @@ const AddProductsPage = () => {
   );
 };
 
-export default AddProductsPage;
+export default EditProductsForm;
