@@ -1,9 +1,10 @@
 "use server";
 
-import { addProduct, updateProduct } from "@/prisma-db";
+import { addProduct, updateProduct, deleteProduct } from "@/prisma-db";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export type Errors = {
+type Errors = {
   title?: string;
   price?: string;
   description?: string;
@@ -13,7 +14,7 @@ export type FormState = {
   errors: Errors;
 };
 
-export const createAction = async (
+export const createProduct = async (
   prevState: FormState,
   formData: FormData
 ) => {
@@ -22,7 +23,6 @@ export const createAction = async (
   const description = formData.get("description") as string;
 
   const errors: Errors = {};
-
   if (!title) {
     errors.title = "Title is required";
   }
@@ -32,7 +32,6 @@ export const createAction = async (
   if (!description) {
     errors.description = "Description is required";
   }
-
   if (Object.keys(errors).length > 0) {
     return { errors };
   }
@@ -41,7 +40,7 @@ export const createAction = async (
   redirect("/products-db");
 };
 
-export const editAction = async (
+export const editProduct = async (
   id: number,
   prevState: FormState,
   formData: FormData
@@ -51,7 +50,6 @@ export const editAction = async (
   const description = formData.get("description") as string;
 
   const errors: Errors = {};
-
   if (!title) {
     errors.title = "Title is required";
   }
@@ -61,11 +59,15 @@ export const editAction = async (
   if (!description) {
     errors.description = "Description is required";
   }
-
   if (Object.keys(errors).length > 0) {
     return { errors };
   }
 
   await updateProduct(id, title, parseFloat(price), description);
   redirect("/products-db");
+};
+
+export const removeProduct = async (id: number) => {
+  await deleteProduct(id);
+  revalidatePath("/products-db");
 };

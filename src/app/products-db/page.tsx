@@ -1,29 +1,26 @@
-import {  getProducts } from "@/prisma-db";
+import { getProducts } from "@/prisma-db";
+import AllProducts from "./AllProducts";
 
 export type Product = {
   id: number;
   title: string;
   price: number;
-  description: string | null;
+  description: string;
 };
 
-const ProductsDBPage = async () => {
-  const products: Product[] = await getProducts();
+const Products = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ query: string }>;
+}) => {
+  const { query } = await searchParams;
+  const products: Product[] = await getProducts(query);
 
   return (
-    <>
-      {products.map((product) => {
-        return (
-          <div key={product.id} className="bg-white text-black p-4 rounded-sm">
-            <h1 className="text-2xl font-bold">{product.title}</h1>
-            <p className="text-gray-500">{product.description}</p>
-            <p className="text-gray-500">Price: {product.price}</p>
-            <hr className="my-4" />
-          </div>
-        );
-      })}
-    </>
+    <div>
+      <AllProducts products={products} />
+    </div>
   );
 };
 
-export default ProductsDBPage;
+export default Products;

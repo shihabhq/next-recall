@@ -1,17 +1,19 @@
 "use client";
-import { createProduct, FormState } from "@/actions/products";
+
+import { editProduct, FormState } from "@/actions/products";
 import Form from "next/form";
+import { Product } from "../page";
 import { useActionState } from "react";
 
-const CreateProductForm = () => {
+const EditProductForm = ({ product }: { product: Product }) => {
   const initialState: FormState = {
     errors: {},
   };
+  const editFormWithId = editProduct.bind(null, product.id);
   const [state, formAction, isPending] = useActionState(
-    createProduct,
+    editFormWithId,
     initialState
   );
-
   return (
     <Form
       action={formAction}
@@ -21,6 +23,7 @@ const CreateProductForm = () => {
         <input
           type="text"
           name="title"
+          defaultValue={product.title}
           placeholder="Title"
           className="p-2 border border-gray-300 rounded-md"
         />{" "}
@@ -32,6 +35,7 @@ const CreateProductForm = () => {
         <input
           type="number"
           name="price"
+          defaultValue={product.price}
           placeholder="Price"
           className="p-2 border border-gray-300 rounded-md"
         />
@@ -42,6 +46,7 @@ const CreateProductForm = () => {
       <div>
         <textarea
           name="description"
+          defaultValue={product.description}
           placeholder="Description"
           className="p-2 border border-gray-300 rounded-md"
         ></textarea>
@@ -54,10 +59,10 @@ const CreateProductForm = () => {
         className="px-3 py-2 bg-blue-500 disabled:bg-gray-800 hover:bg-blue-600 cursor-pointer text-white rounded-md"
         disabled={isPending}
       >
-        Create Product
+        Update Product
       </button>
     </Form>
   );
 };
 
-export default CreateProductForm;
+export default EditProductForm;
